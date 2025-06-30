@@ -10,11 +10,14 @@ import builtins
 from pathlib import Path
 from urllib.parse import urljoin
 
+import nest_asyncio
+nest_asyncio.apply()
+
 import aiohttp
 from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
 
-# ————— Corrected & Robust Playwright Installation —————
+
 @st.cache_resource
 def install_playwright_deps():
     """
@@ -38,7 +41,7 @@ def install_playwright_deps():
                 st.error(f"Failed to install Playwright browser: {result.stderr}")
                 
             st.write("Installing system dependencies...")
-            # Try to install system dependencies (may not work on all platforms)
+            
             try:
                 subprocess.run(
                     [sys.executable, "-m", "playwright", "install-deps"],
