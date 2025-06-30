@@ -17,7 +17,16 @@ import aiohttp
 from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
 
+if sys.platform.startswith("win") and sys.version_info >= (3, 8):
+    from asyncio import (
+        WindowsProactorEventLoopPolicy,
+        WindowsSelectorEventLoopPolicy,
+    )
 
+    print(type(asyncio.get_event_loop_policy()))
+    if type(asyncio.get_event_loop_policy()) != WindowsProactorEventLoopPolicy:
+        asyncio.set_event_loop_policy(WindowsProactorEventLoopPolicy())
+        print("Incorrect asyncio loop policy --> set to correct one!", type(asyncio.get_event_loop_policy()))
 @st.cache_resource
 def install_playwright_deps():
     """
