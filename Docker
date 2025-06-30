@@ -5,7 +5,6 @@ FROM python:3.9-slim
 WORKDIR /app
 
 # 1. Install system dependencies required by Playwright and Chromium
-# This is the crucial step that fixes the problem
 RUN apt-get update && apt-get install -y \
     libnss3 \
     libnspr4 \
@@ -29,12 +28,11 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 3. Install the Playwright browser itself into the image
-# This ensures it's done during the build, not at runtime
+
 RUN playwright install chromium
 
 # 4. Copy the rest of your application code into the container
 COPY . .
 
 # 5. Define the command to run your Streamlit app
-# Replace 'your_app_name.py' with the actual name of your main Python file
 CMD ["streamlit", "run", "streamlit_app.py", "--server.port", "8080", "--server.headless", "true"]  
