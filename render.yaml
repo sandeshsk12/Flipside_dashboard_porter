@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: your-app-name # Change this
+    env: docker
+    plan: starter # Free plan might be too slow or low on RAM. Consider 'Starter' if you face issues.
+    dockerfilePath: ./Dockerfile
+    healthCheck:
+      path: /_stcore/health
+      initialDelaySeconds: 60
