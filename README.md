@@ -1,10 +1,10 @@
-# Tab-Structured Site Snapshotter
+# Flipside dashboard downloader
 
-A powerful tool to download and save tab-structured websites as offline HTML snapshots. Perfect for archiving dashboards, documentation, or any website with tabbed navigation.
+A powerful tool to download and save tab-structured flipside dashboard as offline HTML snapshots. Perfect for archiving dashboards, documentation, or any website with tabbed navigation.
 
 ## Features
 
-- 🚀 Scrapes all tabs and sub-tabs from a website
+- 🚀 Scrapes all tabs and sub-tabs from flipside
 - 💾 Saves complete offline snapshots with all assets (CSS, JS, images)
 - 🔗 Rewrites links to work offline
 - 📂 Organizes content in a clean directory structure
@@ -78,7 +78,6 @@ output_directory/
 ## Troubleshooting
 
 - **Missing tabs**: Some websites load content dynamically. Try increasing the wait times in the code.
-- **Authentication**: The tool doesn't handle login-required pages. Ensure the content is publicly accessible.
 - **Rate limiting**: Some websites may block frequent requests. Add delays between requests if needed.
 
 ## License
