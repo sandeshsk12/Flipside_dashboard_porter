@@ -18,7 +18,48 @@ from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
 
 
+@st.cache_resource
+def install_playwright_deps():
+    """
+    Installs the chromium browser for Playwright and system dependencies.
+    The @st.cache_resource decorator ensures this runs only once.
+    """
+    try:
+        # Show installation status
+        status = st.status("Installing Playwright dependencies...")
+        
+        with status:
+            st.write("Installing Playwright browser...")
+            # Install Chromium browser
+            result = subprocess.run(
+                [sys.executable, "-m", "playwright", "install", "chromium"],
+                capture_output=True,
+                text=True
+            )
+            
+            if result.returncode != 0:
+                st.error(f"Failed to install Playwright browser: {result.stderr}")
+                
+            st.write("Installing system dependencies...")
+            
+            try:
+                subprocess.run(
+                    [sys.executable, "-m", "playwright", "install-deps"],
+                    capture_output=True,
+                    text=True
+                )
+            except Exception as e:
+                st.warning(f"Note: Some system dependencies might be missing: {e}")
+                st.warning("The app might not work correctly in this environment.")
+                
+            st.success("Playwright setup completed!")
+    except Exception as e:
+        st.error(f"Failed to set up Playwright: {str(e)}")
+        st.warning("The app might not work correctly. Some features may be limited.")
+        st.stop()
 
+# Run the installer at the start of the script
+install_playwright_deps()
 # ——————————————————————————————————————————————————————
 
 def slugify(text):
