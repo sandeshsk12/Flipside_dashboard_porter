@@ -251,16 +251,14 @@ async def main_scraper(url: str, out_dir_base: str):
                     except Exception as e:
                         print(f"  -> Error on main tab '{name}': {e}")
         
-        # --- MODIFIED CODE BLOCK TO CREATE ROOT FILE ---
+        # --- CREATE INDEX.HTML REDIRECT FILE ---
         if site_map:
             first_page_path = next(iter(site_map.values()))
             
-            # Get the name of the base output directory for the filename
-            folder_name = Path(out_dir_base).name
-            root_file_name = f"{folder_name}.html"
-            root_file_path = Path(out_dir_base) / root_file_name
+            # Always use index.html as the root file name
+            root_file_path = Path(out_dir_base) / "index.html"
             
-            print(f"\n--- Creating root entry file '{root_file_name}' to redirect to '{first_page_path}' ---")
+            print(f"\n--- Creating root entry file 'index.html' to redirect to '{first_page_path}' ---")
             
             redirect_html = f"""
 <!DOCTYPE html>
